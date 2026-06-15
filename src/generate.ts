@@ -37,31 +37,31 @@ ${
   --color-transparent: transparent;
   --color-background: var(--color-background);
 
-  --color-whiteA-1: var(--white-a1);
-  --color-whiteA-2: var(--white-a2);
-  --color-whiteA-3: var(--white-a3);
-  --color-whiteA-4: var(--white-a4);
-  --color-whiteA-5: var(--white-a5);
-  --color-whiteA-6: var(--white-a6);
-  --color-whiteA-7: var(--white-a7);
-  --color-whiteA-8: var(--white-a8);
-  --color-whiteA-9: var(--white-a9);
-  --color-whiteA-10: var(--white-a10);
-  --color-whiteA-11: var(--white-a11);
-  --color-whiteA-12: var(--white-a12);
+  --color-white-a1: var(--white-a1);
+  --color-white-a2: var(--white-a2);
+  --color-white-a3: var(--white-a3);
+  --color-white-a4: var(--white-a4);
+  --color-white-a5: var(--white-a5);
+  --color-white-a6: var(--white-a6);
+  --color-white-a7: var(--white-a7);
+  --color-white-a8: var(--white-a8);
+  --color-white-a9: var(--white-a9);
+  --color-white-a10: var(--white-a10);
+  --color-white-a11: var(--white-a11);
+  --color-white-a12: var(--white-a12);
 
-  --color-blackA-1: var(--black-a1);
-  --color-blackA-2: var(--black-a2);
-  --color-blackA-3: var(--black-a3);
-  --color-blackA-4: var(--black-a4);
-  --color-blackA-5: var(--black-a5);
-  --color-blackA-6: var(--black-a6);
-  --color-blackA-7: var(--black-a7);
-  --color-blackA-8: var(--black-a8);
-  --color-blackA-9: var(--black-a9);
-  --color-blackA-10: var(--black-a10);
-  --color-blackA-11: var(--black-a11);
-  --color-blackA-12: var(--black-a12);
+  --color-black-a1: var(--black-a1);
+  --color-black-a2: var(--black-a2);
+  --color-black-a3: var(--black-a3);
+  --color-black-a4: var(--black-a4);
+  --color-black-a5: var(--black-a5);
+  --color-black-a6: var(--black-a6);
+  --color-black-a7: var(--black-a7);
+  --color-black-a8: var(--black-a8);
+  --color-black-a9: var(--black-a9);
+  --color-black-a10: var(--black-a10);
+  --color-black-a11: var(--black-a11);
+  --color-black-a12: var(--black-a12);
 
   /* spacing */
   --spacing-rx-1: var(--space-1);
@@ -127,6 +127,10 @@ ${
   --tracking-8: var(--letter-spacing-8);
   --tracking-9: var(--letter-spacing-9);
 
+  /* font family */
+  --font-sans: var(--default-font-family);
+  --font-mono: var(--code-font-family);
+
   /* font weight */
   --font-weight-light: 300;
   --font-weight-regular: 400;
@@ -135,6 +139,9 @@ ${
   --font-weight-bold: 700;
 
   /* border radius */
+  /* names intentionally match Radix's own --radius-*; this only resolves to
+     Radix's values because the block is @theme inline (the value is inlined
+     into utilities instead of re-emitting a self-referencing variable). */
   --radius-1: var(--radius-1);
   --radius-2: var(--radius-2);
   --radius-3: var(--radius-3);
@@ -169,18 +176,18 @@ ${
   --color-${key}-10: var(--${key}-10);
   --color-${key}-11: var(--${key}-11);
   --color-${key}-12: var(--${key}-12);
-  --color-${key}A-1: var(--${key}-a1);
-  --color-${key}A-2: var(--${key}-a2);
-  --color-${key}A-3: var(--${key}-a3);
-  --color-${key}A-4: var(--${key}-a4);
-  --color-${key}A-5: var(--${key}-a5);
-  --color-${key}A-6: var(--${key}-a6);
-  --color-${key}A-7: var(--${key}-a7);
-  --color-${key}A-8: var(--${key}-a8);
-  --color-${key}A-9: var(--${key}-a9);
-  --color-${key}A-10: var(--${key}-a10);
-  --color-${key}A-11: var(--${key}-a11);
-  --color-${key}A-12: var(--${key}-a12);
+  --color-${key}-a1: var(--${key}-a1);
+  --color-${key}-a2: var(--${key}-a2);
+  --color-${key}-a3: var(--${key}-a3);
+  --color-${key}-a4: var(--${key}-a4);
+  --color-${key}-a5: var(--${key}-a5);
+  --color-${key}-a6: var(--${key}-a6);
+  --color-${key}-a7: var(--${key}-a7);
+  --color-${key}-a8: var(--${key}-a8);
+  --color-${key}-a9: var(--${key}-a9);
+  --color-${key}-a10: var(--${key}-a10);
+  --color-${key}-a11: var(--${key}-a11);
+  --color-${key}-a12: var(--${key}-a12);
   --color-${key}-contrast: var(--${key}-contrast);
   --color-${key}-surface: var(--${key}-surface);
   --color-${key}-track: var(--${key}-track);
@@ -190,12 +197,15 @@ ${
     .join("\n")}
 
   /* breakpoints */
+  /* match Radix scale exactly; Radix has no 2xl, so unset Tailwind's default
+     (1536px) to avoid it falling out of order below xl (1640px). */
 
   --breakpoint-xs: 520px;
   --breakpoint-sm: 768px;
   --breakpoint-md: 1024px;
   --breakpoint-lg: 1280px;
   --breakpoint-xl: 1640px;
+  --breakpoint-2xl: initial;
 }
 `.trim();
 }

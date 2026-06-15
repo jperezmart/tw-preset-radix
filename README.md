@@ -4,7 +4,8 @@
 
 | Tailwind CSS Version | Radix themes Version | Preset Version |
 | -------------------- | -------------------- | -------------- |
-| v4                   | v3                   | v1 (current)   |
+| v4                   | v3                   | v2 (current)   |
+| v4                   | v3                   | v1             |
 
 ## Installation
 
@@ -15,6 +16,12 @@ npm install tw-preset-radix --dev
 ## Tokens and Classes
 
 This preset overrides the default tailwind classes with the radix ones, except for the space tokens that starts with the rx suffix (for example you can use both `px-2` based on tailwind spacing and `px-rx-2` based on radix spacing).
+
+A few things to note:
+
+- **Alpha colors** follow Radix's own naming: `bg-gray-a5`, `text-accent-a11`, `border-white-a3`, `bg-black-a6` (mirroring the `--gray-a5` / `--accent-a11` CSS variables).
+- **Font families** are mapped to Radix, so `font-sans` uses `--default-font-family` and `font-mono` uses `--code-font-family`.
+- **Breakpoints** match the Radix scale: `xs` (520px), `sm` (768px), `md` (1024px), `lg` (1280px), `xl` (1640px). Tailwind's default `2xl` is unset because Radix has no equivalent.
 
 For the complete list of tokens check the radix documentation: https://www.radix-ui.com/themes/docs/theme/overview#tokens
 
@@ -54,3 +61,26 @@ Note that you don't have to import tailwind or radix-themes styles, this preset 
 
 @import "tw-preset-radix/theme.css"; /* <-- import the preset */
 ```
+
+## Migrating from v1 to v2
+
+> 💡 There's a migration skill that automates this. From any AI client that
+> supports [Agent Skills](https://www.skills.sh/) (Claude Code, Cursor, …):
+>
+> ```bash
+> npx skills add jperezmart/tw-preset-radix
+> ```
+>
+> then run `/migrate-tw-preset-radix-v1-to-v2`. It renames the alpha color
+> classes across your codebase, migrates `2xl:` usages, and bumps the version.
+> See [`skills/migrate-tw-preset-radix-v1-to-v2`](./skills/migrate-tw-preset-radix-v1-to-v2).
+
+v2 contains breaking changes to better match Radix and Tailwind conventions:
+
+- **Alpha color classes were renamed** from `…A-{n}` to `…-a{n}`, matching Radix's CSS variables. Rename your classes:
+  - `bg-grayA-5` → `bg-gray-a5`
+  - `text-accentA-11` → `text-accent-a11`
+  - `border-whiteA-3` → `border-white-a3`, `bg-blackA-6` → `bg-black-a6`
+- **The `2xl` breakpoint was removed** (Radix has no `2xl`). Replace `2xl:` usages with `xl:` or a custom breakpoint.
+
+New, non-breaking additions: `font-sans` / `font-mono` now resolve to Radix font families.
