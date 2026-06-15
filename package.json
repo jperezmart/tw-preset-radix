@@ -1,6 +1,6 @@
 {
   "name": "tw-preset-radix",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Integrate Radix Themes with Tailwind CSS",
   "homepage": "https://github.com/jperezmart/tw-preset-radix#readme",
   "bugs": {
@@ -16,6 +16,10 @@
     "preset"
   ],
   "main": "src/index.css",
+  "files": [
+    "src/index.css",
+    "src/theme.css"
+  ],
   "scripts": {
     "generate-theme-with-imports": "tsx ./src/cli.ts theme-with-imports > ./src/index.css",
     "generate-theme": "tsx ./src/cli.ts theme > ./src/theme.css"
