@@ -2,9 +2,13 @@
   "name": "tw-preset-radix",
   "version": "1.1.0",
   "description": "Integrate Radix Themes with Tailwind CSS",
-  "homepage": "https://github.com/JavierBrooktec/tw-preset-radix#readme",
+  "homepage": "https://github.com/jperezmart/tw-preset-radix#readme",
   "bugs": {
-    "url": "https://github.com/JavierBrooktec/tw-preset-radix/issues"
+    "url": "https://github.com/jperezmart/tw-preset-radix/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jperezmart/tw-preset-radix.git"
   },
   "keywords": [
     "radix themes",

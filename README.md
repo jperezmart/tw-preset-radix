@@ -18,7 +18,7 @@ This preset overrides the default tailwind classes with the radix ones, except f
 
 For the complete list of tokens check the radix documentation: https://www.radix-ui.com/themes/docs/theme/overview#tokens
 
-For the tailwind classes check the preset theme: https://github.com/JavierBrooktec/tw-preset-radix/blob/main/src/index.css
+For the tailwind classes check the preset theme: https://github.com/jperezmart/tw-preset-radix/blob/main/src/index.css
 
 ## Usage
 
