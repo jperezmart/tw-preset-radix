@@ -62,6 +62,49 @@ Note that you don't have to import tailwind or radix-themes styles, this preset 
 @import "tw-preset-radix/theme.css"; /* <-- import the preset */
 ```
 
+## Typography
+
+Optional support for [`@tailwindcss/typography`](https://github.com/tailwindlabs/tailwindcss-typography), as a `prose-radix` color theme that maps the plugin's `--tw-prose-*` variables to Radix tokens.
+
+Install the plugin (it's an optional peer dependency):
+
+```bash
+npm install @tailwindcss/typography --dev
+```
+
+Import the typography file after the preset, and add `prose-radix` next to `prose`:
+
+```css
+@import "tw-preset-radix";
+@import "tw-preset-radix/typography.css";
+```
+
+```tsx
+export default function Post({ children }) {
+  return <article className="prose prose-radix">{children}</article>;
+}
+```
+
+That's all. A few things to note:
+
+- **You don't need `@plugin "@tailwindcss/typography";`** — this file already registers it. Adding it yourself registers the plugin twice and duplicates ~21KB of prose CSS.
+- **Dark mode needs no `prose-invert`.** Radix's scales already resolve to their dark values under `.dark`, so prose follows the theme on its own. `dark:prose-invert` is mapped to the same tokens, so it stays a harmless no-op if you already have it.
+- **It follows your `<Theme accentColor>`**, because links, inline code and quote borders use the accent scale.
+- Prose only inherits Radix *colors*. Its font sizes and spacing are relative `em` values and are left untouched.
+
+Where Radix Themes styles an equivalent element, the mapping uses the same token that component uses:
+
+| prose                     | Radix           | prose                 | Radix          |
+| ------------------------- | --------------- | --------------------- | -------------- |
+| `body` `headings` `bold` `quotes` | `--gray-12`     | `links` `code`        | `--accent-a11` |
+| `lead` `counters` `captions`      | `--gray-11`     | `quote-borders`       | `--accent-a6`  |
+| `kbd`                     | `--gray-12`     | `kbd-shadows`         | `--gray-a5`    |
+| `bullets`                 | `--gray-a8`     | `hr` `th-borders`     | `--gray-a6`    |
+| `pre-bg`                  | `--gray-a3`     | `pre-code`            | `--gray-12`    |
+| `td-borders`              | `--gray-a5`     |                       |                |
+
+Since these are Radix variables, `prose-radix` only resolves inside a `<Theme>` (that's where Radix defines them).
+
 ## Migrating from v1 to v2
 
 > 💡 There's a migration skill that automates this. From any AI client that

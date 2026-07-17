@@ -1,6 +1,6 @@
 {
   "name": "tw-preset-radix",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "Integrate Radix Themes with Tailwind CSS",
   "homepage": "https://github.com/jperezmart/tw-preset-radix#readme",
   "bugs": {
@@ -18,17 +18,28 @@
   "main": "src/index.css",
   "files": [
     "src/index.css",
-    "src/theme.css"
+    "src/theme.css",
+    "src/typography.css"
   ],
   "scripts": {
     "generate-theme-with-imports": "tsx ./src/cli.ts theme-with-imports > ./src/index.css",
-    "generate-theme": "tsx ./src/cli.ts theme > ./src/theme.css"
+    "generate-theme": "tsx ./src/cli.ts theme > ./src/theme.css",
+    "generate-typography": "tsx ./src/cli.ts typography > ./src/typography.css"
   },
   "type": "module",
   "exports": {
     ".": "./src/index.css",
     "./theme.css": "./src/theme.css",
+    "./typography.css": "./src/typography.css",
     "./package.json": "./package.json"
+  },
+  "peerDependencies": {
+    "@tailwindcss/typography": ">=0.5.0"
+  },
+  "peerDependenciesMeta": {
+    "@tailwindcss/typography": {
+      "optional": true
+    }
   },
   "author": "Javier Pérez",
   "license": "MIT",
@@ -37,6 +48,7 @@
     "tailwindcss": "^4",
     "tsx": "^4.19.3",
     "typescript": "^5.1.6",
-    "@radix-ui/themes": "^3.2.1"
+    "@radix-ui/themes": "^3.2.1",
+    "@tailwindcss/typography": "^0.5.20"
   }
 }
