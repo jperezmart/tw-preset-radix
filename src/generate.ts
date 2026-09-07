@@ -34,6 +34,7 @@ ${
   --color-panel: var(--color-panel);
   --color-panel-solid: var(--color-panel-solid);
   --color-panel-translucent: var(--color-panel-translucent);
+  --color-surface: var(--color-surface);
   --color-transparent: transparent;
   --color-background: var(--color-background);
 
@@ -148,7 +149,15 @@ ${
   --radius-4: var(--radius-4);
   --radius-5: var(--radius-5);
   --radius-6: var(--radius-6);
+  /* item radius: Radix's own formula for pill-able controls, exposed per step
+     (rounded-item-1 ... rounded-item-6). rounded-item stays an alias of step 2. */
   --radius-item: max(var(--radius-2),var(--radius-full));
+  --radius-item-1: max(var(--radius-1),var(--radius-full));
+  --radius-item-2: max(var(--radius-2),var(--radius-full));
+  --radius-item-3: max(var(--radius-3),var(--radius-full));
+  --radius-item-4: max(var(--radius-4),var(--radius-full));
+  --radius-item-5: max(var(--radius-5),var(--radius-full));
+  --radius-item-6: max(var(--radius-6),var(--radius-full));
   --radius-full: 9999px;
 
   /* shadow */
