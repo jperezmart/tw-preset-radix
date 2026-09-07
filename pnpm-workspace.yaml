@@ -1,0 +1,24 @@
+# Not a workspace — there is no `packages:` key and there never will be. This
+# repo is a lone package at the root (ticket 03), and the file exists for one
+# reason: pnpm >= 10 blocks a dependency's build scripts until they are declared
+# here, and pnpm 11 reads `allowBuilds` from nowhere else. Both
+# `pnpm.allowBuilds` and `pnpm.onlyBuiltDependencies` in package.json were tried
+# and are ignored — pnpm regenerates this file as a stub either way. Without the
+# declaration `pnpm install` exits 1 with ERR_PNPM_IGNORED_BUILDS, which would
+# fail release.yml at its install step.
+#
+# esbuild's postinstall (a transitive dependency of tsx) is declined, keeping
+# script execution out of the install that release.yml shares. Ticket 18's
+# correction warns that a declined build can hide its cost in a cache outside
+# the repo, so that a local pass proves nothing. It does not apply here, and the
+# reason is structural rather than "it worked on this machine":
+#
+#   - The binary is a lockfile-recorded optional dependency. pnpm-lock.yaml
+#     carries all 50 `@esbuild/*` platform packages, cpu/os-gated — including
+#     `@esbuild/linux-x64`, which is what a runner installs. install.js only
+#     downloads when `require.resolve` of that package fails, and it cannot fail.
+#   - Nothing in ci.yml or release.yml runs tsx at all. The only caller is a
+#     human running `pnpm generate-*` by hand, which is verified working with
+#     the build declined and a freshly deleted node_modules.
+allowBuilds:
+  esbuild: false

@@ -1,0 +1,45 @@
+# SCAFFOLDING — but keep it, or something like it.
+#
+# The actions in release.yml and ci.yml are pinned by commit SHA. A SHA without
+# a bot to move it is not security, it is fossilisation — and release.yml is the
+# file you will touch least, so its pins would fossilise hardest. Dependabot
+# rewrites both the hash and the trailing `# vX.Y.Z` comment, keeping them alive.
+#
+# Monthly and grouped: these actions ship roughly one major a year, so this is
+# the least noise that keeps the pins current.
+
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: / # literal: the repo root. Dependabot finds .github/workflows itself
+    schedule:
+      interval: monthly
+    groups:
+      actions:
+        patterns: ['*']
+
+  # Required by the caret ranges in package.json — @changesets/cli, tsx and the
+  # rest: without this block they never refresh in the lockfile. This repo does
+  # not consume @jperezmart/config, which is what the template's copy of this
+  # comment cites.
+  #
+  # Note what it does NOT do: Dependabot moves no version *field* — not
+  # `packageManager`, not `engines.node`, not `devEngines`. Node and pnpm are
+  # hand-edited on purpose. The standard demands a floor, not latest.
+  - package-ecosystem: npm
+    directories:
+      - /
+    schedule:
+      interval: monthly
+    groups:
+      npm:
+        patterns: ['*']
+    # Within-range refreshes only. A major rewrites the range rather than
+    # refreshing it, and that is a human's call — the standard demands a floor,
+    # not latest. (The template's copy of this comment cites a TypeScript 7 PR
+    # that typescript-eslint rejected; that evidence is from a repo with a
+    # linter, and does not apply here.)
+    ignore:
+      - dependency-name: '*'
+        update-types:
+          - version-update:semver-major

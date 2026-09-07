@@ -22,8 +22,11 @@
     "src/typography.css"
   ],
   "scripts": {
-    "generate-theme-with-imports": "tsx ./src/cli.ts theme-with-imports > ./src/index.css",
+    "changeset": "changeset",
+    "changeset:publish": "changeset publish",
+    "changeset:version": "changeset version && pnpm install --no-frozen-lockfile",
     "generate-theme": "tsx ./src/cli.ts theme > ./src/theme.css",
+    "generate-theme-with-imports": "tsx ./src/cli.ts theme-with-imports > ./src/index.css",
     "generate-typography": "tsx ./src/cli.ts typography > ./src/typography.css"
   },
   "type": "module",
@@ -44,11 +47,21 @@
   "author": "Javier Pérez",
   "license": "MIT",
   "devDependencies": {
+    "@changesets/changelog-github": "^1.0.0",
+    "@changesets/cli": "^3.0.1",
+    "@radix-ui/themes": "^3.2.1",
+    "@tailwindcss/typography": "^0.5.20",
     "@types/node": "^20.4.9",
     "tailwindcss": "^4",
     "tsx": "^4.19.3",
-    "typescript": "^5.1.6",
-    "@radix-ui/themes": "^3.2.1",
-    "@tailwindcss/typography": "^0.5.20"
+    "typescript": "^5.1.6"
+  },
+  "packageManager": "pnpm@11.25.0",
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": "24.20.0",
+      "onFail": "error"
+    }
   }
 }

@@ -1,0 +1,52 @@
+# CANON — copy this file verbatim. Do not rename it.
+#
+# npm binds a package's trusted publisher to a workflow *filename* in this
+# repository. Renaming this file silently breaks publishing for every package
+# configured against it.
+#
+# The only edit this file accepts is deleting the marked build step below.
+# See README.md § The canon.
+
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # create the "Version Packages" PR and tags
+      pull-requests: write # open/update that PR
+      id-token: write # OIDC trusted publishing to npm (+ automatic provenance)
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
+
+      # No `registry-url`: it writes an `_authToken` line into .npmrc, which
+      # makes pnpm fail the publish with `E404 PUT`. Trusted publishing needs
+      # no registry auth at all. Add it back only for private dependencies.
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: package.json # reads devEngines.runtime
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      # No NPM_TOKEN: changesets detects the OIDC id-token and publishes via npm
+      # trusted publishing. Provenance is emitted automatically, with no flag and
+      # no .npmrc — never add `provenance=true`, it hard-fails outside CI and
+      # blocks the day-zero bootstrap in README.md § Day zero.
+      - uses: changesets/action@8488615a623b1b9c987934bb89eae8af6a946ac1 # v2.1.1
+        with:
+          version-script: pnpm run changeset:version
+          publish-script: pnpm run changeset:publish
+          commit-message: 'chore: version packages'
+          pr-title: 'chore: version packages'
