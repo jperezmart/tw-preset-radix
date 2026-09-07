@@ -1,6 +1,6 @@
 {
   "name": "tw-preset-radix",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Integrate Radix Themes with Tailwind CSS",
   "homepage": "https://github.com/jperezmart/tw-preset-radix#readme",
   "bugs": {
