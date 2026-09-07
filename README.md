@@ -1,5 +1,8 @@
 # Simple [Tailwind](https://tailwindcss.com/) preset for [Radix Themes](https://www.radix-ui.com/themes/docs/overview/getting-started)
 
+[![npm version](https://img.shields.io/npm/v/tw-preset-radix.svg)](https://www.npmjs.com/package/tw-preset-radix)
+[![license](https://img.shields.io/npm/l/tw-preset-radix.svg)](./LICENSE)
+
 ## Compatibility
 
 | Tailwind CSS Version | Radix themes Version | Preset Version |
