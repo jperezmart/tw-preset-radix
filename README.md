@@ -24,7 +24,12 @@ A few things to note:
 
 - **Alpha colors** follow Radix's own naming: `bg-gray-a5`, `text-accent-a11`, `border-white-a3`, `bg-black-a6` (mirroring the `--gray-a5` / `--accent-a11` CSS variables).
 - **Font families** are mapped to Radix, so `font-sans` uses `--default-font-family` and `font-mono` uses `--code-font-family`.
+- **Item radius** mirrors Radix's pill-able control formula: `rounded-item` (step 2) plus `rounded-item-1` ... `rounded-item-6`, each resolving to `max(var(--radius-N), var(--radius-full))` so they turn into pills when the theme is set to `radius="full"`.
+- **Panel colors** follow the `panelBackground` theme prop: `bg-panel` resolves to solid or translucent, while `bg-panel-solid` / `bg-panel-translucent` pin it.
+- **Surfaces** come in two flavours: `bg-surface` is the untinted translucent fill Radix uses for `variant="surface"` inputs, and `bg-accent-surface` (or any `bg-{color}-surface`) is the tinted one used by badges and buttons.
 - **Breakpoints** match the Radix scale: `xs` (520px), `sm` (768px), `md` (1024px), `lg` (1280px), `xl` (1640px). Tailwind's default `2xl` is unset because Radix has no equivalent.
+
+**[Token notes →](./docs/tokens.md)** — the tokens that don't behave the way a Tailwind habit expects: the item radius formula, panel colors, `bg-surface` vs `bg-accent-surface`, `bg-background`, why `accent` is an alias, the `-contrast` / `-surface` / `-track` / `-indicator` steps, `shadow-1` being inset-only, `p-2` vs `p-rx-2`, and the `@theme inline` self-reference trick.
 
 For the complete list of tokens check the radix documentation: https://www.radix-ui.com/themes/docs/theme/overview#tokens
 
