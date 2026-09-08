@@ -1,11 +1,12 @@
 # Not a workspace — there is no `packages:` key and there never will be. This
-# repo is a lone package at the root (ticket 03), and the file exists for one
-# reason: pnpm >= 10 blocks a dependency's build scripts until they are declared
-# here, and pnpm 11 reads `allowBuilds` from nowhere else. Both
-# `pnpm.allowBuilds` and `pnpm.onlyBuiltDependencies` in package.json were tried
-# and are ignored — pnpm regenerates this file as a stub either way. Without the
-# declaration `pnpm install` exits 1 with ERR_PNPM_IGNORED_BUILDS, which would
-# fail release.yml at its install step.
+# repo is a lone package at the root (ticket 03), and the file exists only to
+# hold settings pnpm reads from no other file: `allowBuilds` here, and the
+# supply-chain policy at the end. pnpm >= 10 blocks a dependency's build scripts
+# until they are declared here. Both `pnpm.allowBuilds` and
+# `pnpm.onlyBuiltDependencies` in package.json were tried and are ignored — pnpm
+# regenerates this file as a stub either way. Without the declaration
+# `pnpm install` exits 1 with ERR_PNPM_IGNORED_BUILDS, which would fail
+# release.yml at its install step.
 #
 # esbuild's postinstall (a transitive dependency of tsx) is declined, keeping
 # script execution out of the install that release.yml shares. Ticket 18's
@@ -22,3 +23,15 @@
 #     the build declined and a freshly deleted node_modules.
 allowBuilds:
   esbuild: false
+
+# pnpm's supply-chain policy, pinned rather than inherited, and exempting the
+# packages this owner publishes. This block is contract item 10 of
+# jperezmart/package-template, copied verbatim and not tailored per repo; the
+# README there carries the four things the keys do not say for themselves.
+minimumReleaseAge: 1440
+minimumReleaseAgeStrict: true
+minimumReleaseAgeExcludePrune: true
+minimumReleaseAgeExclude:
+  - '@jperezmart/*'
+  - ts-devtools-plugin-radix-themes
+  - tw-preset-radix
